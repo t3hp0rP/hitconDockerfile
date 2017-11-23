@@ -5,4 +5,14 @@
 FROM pr0ph3t/hitcon2017_babyfirst_revenge
 MAINTAINER Pr0ph3t "1415314884@qq.com"
 
-CMD ["service apache2 start && service mysql start"]
+# create run.sh
+RUN touch /run.sh \
+	&& echo '#!/bin/sh' >> /run.sh \
+	&& echo '' >> run.sh \
+	&& echo 'service apache2 start' >> run.sh \
+	&& echo '' >> run.sh \
+	&& echo 'service mysql start' >> run.sh \
+	&& chmod +x /run.sh
+
+#start http && mysql
+ENTRYPOINT ["/run.sh"]

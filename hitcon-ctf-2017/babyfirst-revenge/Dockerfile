@@ -67,4 +67,4 @@ RUN chmod +x /run.sh
 #Expose http service
 EXPOSE 80
 WORKDIR /
-CMD ['bash -x /run.sh']
+CMD ["sh",'/run.sh']

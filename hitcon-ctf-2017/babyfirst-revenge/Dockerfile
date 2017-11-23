@@ -48,19 +48,21 @@ RUN echo -e 'Flag is in the MySQL database\nfl4444g / SugZXUtgeJ52_Bvr' > /home/
 # RUN rm -rf /var/www/html/init.sql
 
 #Create run.sh
-RUN touch /run.sh \
-	&& echo '#!/bin/sh' >> /run.sh \
-	&& echo '' >> run.sh \
-	&& echo 'service apache2 start' >> run.sh \
-	&& echo '' >> run.sh \
-	&& echo 'service mysql start' >> run.sh \
-	&& echo '' >> run.sh \
-	&& echo 'mysql -uroot -pPr0ph3t < /var/www/init.sql' >> run.sh \
-	&& echo '' >> run.sh \
-	&& echo 'if [ ! -f \'/var/www/init.sql\' ]; then' >> run.sh \
-	&& echo '	rm -rf /var/www/init.sql' >> run.sh \
-	&& echo 'fi' >> run.sh \
-	&& chmod +x /run.sh
+ADD run.sh /
+RUN chmod +x /run.sh
+# RUN touch /run.sh \
+# 	&& echo '#!/bin/sh' >> /run.sh \
+# 	&& echo '' >> run.sh \
+# 	&& echo 'service apache2 start' >> run.sh \
+# 	&& echo '' >> run.sh \
+# 	&& echo 'service mysql start' >> run.sh \
+# 	&& echo '' >> run.sh \
+# 	&& echo 'mysql -uroot -pPr0ph3t < /var/www/init.sql' >> run.sh \
+# 	&& echo '' >> run.sh \
+# 	&& echo 'if [ ! -f \'/var/www/init.sql\' ]; then' >> run.sh \
+# 	&& echo '	rm -rf /var/www/init.sql' >> run.sh \
+# 	&& echo 'fi' >> run.sh \
+# 	&& chmod +x /run.sh
 
 #Expose http service
 EXPOSE 80

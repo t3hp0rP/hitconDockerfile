@@ -64,4 +64,5 @@ RUN touch /run.sh \
 
 #Expose http service
 EXPOSE 80
-CMD ['/run.sh']
+WORKDIR /
+CMD ['./run.sh']

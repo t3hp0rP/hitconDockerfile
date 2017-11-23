@@ -35,7 +35,7 @@ RUN echo '0 4 * * * root rm -rf /var/www/sandbox/*' >> /etc/crontab
 #Init challenge
 
 ADD index.php /var/www/html/
-ADD init.sql /var/www/html/
+ADD init.sql /var/www/
 RUN rm -rf /var/www/html/index.html
 RUN mkdir /var/www/sandbox
 RUN chown www-data /var/www/sandbox
@@ -43,9 +43,9 @@ RUN chmod -R 775 /var/www/sandbox
 RUN useradd -m -s /sbin/nologin fl4444g
 RUN echo -e 'Flag is in the MySQL database\nfl4444g / SugZXUtgeJ52_Bvr' > /home/fl4444g/README.txt
 
-RUN service mysql start
-RUN mysql -uroot -pPr0ph3t < /var/www/html/init.sql
-RUN rm -rf /var/www/html/init.sql
+# RUN service mysql start
+# RUN mysql -uroot -pPr0ph3t < /var/www/html/init.sql
+# RUN rm -rf /var/www/html/init.sql
 
 #Create run.sh
 RUN touch /run.sh \
@@ -54,6 +54,12 @@ RUN touch /run.sh \
 	&& echo 'service apache2 start' >> run.sh \
 	&& echo '' >> run.sh \
 	&& echo 'service mysql start' >> run.sh \
+	&& echo '' >> run.sh \
+	&& echo 'mysql -uroot -pPr0ph3t < /var/www/init.sql' >> run.sh \
+	&& echo '' >> run.sh \
+	&& echo 'if [ ! -f "/var/www/init.sql" ]; then' >> run.sh \
+	&& echo '	rm -rf "/var/www/init.sql"' >> run.sh \
+	&& echo 'fi' >> run.sh \
 	&& chmod +x /run.sh
 
 #Expose http service

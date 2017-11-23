@@ -26,7 +26,7 @@ MAINTAINER Pr0ph3t <1415314884@qq.com>
 
 #Install crontab
 
-RUN apt-get update -y && apt-get install crontab -y
+RUN apt-get update -y && apt-get install cron -y
 
 #Init crontab
 

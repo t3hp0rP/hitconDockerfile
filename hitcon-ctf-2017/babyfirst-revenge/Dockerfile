@@ -57,12 +57,12 @@ RUN touch /run.sh \
 	&& echo '' >> run.sh \
 	&& echo 'mysql -uroot -pPr0ph3t < /var/www/init.sql' >> run.sh \
 	&& echo '' >> run.sh \
-	&& echo 'if [ ! -f "/var/www/init.sql" ]; then' >> run.sh \
-	&& echo '	rm -rf "/var/www/init.sql"' >> run.sh \
+	&& echo 'if [ ! -f \'/var/www/init.sql\' ]; then' >> run.sh \
+	&& echo '	rm -rf /var/www/init.sql' >> run.sh \
 	&& echo 'fi' >> run.sh \
 	&& chmod +x /run.sh
 
 #Expose http service
 EXPOSE 80
 WORKDIR /
-CMD ['./run.sh']
+ENTRYPOINT ['run.sh']

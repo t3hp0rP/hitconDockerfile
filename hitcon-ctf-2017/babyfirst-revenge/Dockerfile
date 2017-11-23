@@ -15,4 +15,4 @@ RUN touch /run.sh \
 	&& chmod +x /run.sh
 
 #start http && mysql
-ENTRYPOINT ["/run.sh"]
+CMD ["/run.sh"]

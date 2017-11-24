@@ -13,7 +13,7 @@ MAINTAINER Pr0ph3t <1415314884@qq.com>
 
 #Install crontab
 
-RUN apt-get update -y && apt-get install cron -y
+RUN apt-get update -y && apt-get install cron -y && apt-get install curl -y && apt-get install python -y
 
 #Init crontab , 每天凌晨4点清空sandbox文件夹
 

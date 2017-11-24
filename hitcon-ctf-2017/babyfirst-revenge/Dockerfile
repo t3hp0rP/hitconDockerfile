@@ -15,18 +15,19 @@ MAINTAINER Pr0ph3t <1415314884@qq.com>
 
 RUN apt-get update -y && apt-get install cron -y
 
-#Init crontab
+#Init crontab , 每天凌晨4点清空sandbox文件夹
 
-RUN echo '0 4 * * * root rm -rf /var/www/sandbox/*' >> /etc/crontab
+RUN echo '0 4 * * * root rm -rf /www/sandbox/*' >> /etc/crontab
 
 #Init challenge
 
 ADD index.php /var/www/html/
 ADD init.sql /var/www/
 RUN rm -rf /var/www/html/index.html
-RUN mkdir /var/www/sandbox
-RUN chown www-data /var/www/sandbox
-RUN chmod -R 775 /var/www/sandbox
+RUN mkdir /www
+RUN mkdir /www/sandbox
+RUN chown www-data /www/sandbox
+RUN chmod -R 775 /www/sandbox
 RUN useradd -m -s /sbin/nologin fl4444g
 RUN echo 'Flag is in the MySQL database\nfl4444g / SugZXUtgeJ52_Bvr' > /home/fl4444g/README.txt
 

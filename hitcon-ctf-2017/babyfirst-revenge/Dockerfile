@@ -2,23 +2,10 @@
 #
 #mysql root密码 : Pr0ph3t
 #其余环境与题目无异
-
-#冗余？
-# FROM pr0ph3t/hitcon2017_babyfirst_revenge
-# MAINTAINER Pr0ph3t "1415314884@qq.com"
-
-# # create run.sh
-# RUN touch /run.sh \
-# 	&& echo '#!/bin/sh' >> /run.sh \
-# 	&& echo '' >> run.sh \
-# 	&& echo 'service apache2 start' >> run.sh \
-# 	&& echo '' >> run.sh \
-# 	&& echo 'service mysql start' >> run.sh \
-# 	&& chmod +x /run.sh
-
-# #start http && mysql
-# CMD ["/run.sh"]
-
+#usage : 
+#    进入Dockerfile目录
+#    docker build -t '自定义镜像名字' .  //最后的.别少了
+#    docker run -id --name '你的应用名称' -p 外部端口:80 -m '内存限制 如1g、500m' '你的自定义镜像名称' /run.sh
 
 #整合lamp
 FROM pr0ph3t/lamp
@@ -41,28 +28,12 @@ RUN mkdir /var/www/sandbox
 RUN chown www-data /var/www/sandbox
 RUN chmod -R 775 /var/www/sandbox
 RUN useradd -m -s /sbin/nologin fl4444g
-RUN echo -e 'Flag is in the MySQL database\nfl4444g / SugZXUtgeJ52_Bvr' > /home/fl4444g/README.txt
-
-# RUN service mysql start
-# RUN mysql -uroot -pPr0ph3t < /var/www/html/init.sql
-# RUN rm -rf /var/www/html/init.sql
+RUN echo 'Flag is in the MySQL database\nfl4444g / SugZXUtgeJ52_Bvr' > /home/fl4444g/README.txt
 
 #Create run.sh
 ADD run.sh /
 RUN chmod +x /run.sh
-# RUN touch /run.sh \
-# 	&& echo '#!/bin/sh' >> /run.sh \
-# 	&& echo '' >> run.sh \
-# 	&& echo 'service apache2 start' >> run.sh \
-# 	&& echo '' >> run.sh \
-# 	&& echo 'service mysql start' >> run.sh \
-# 	&& echo '' >> run.sh \
-# 	&& echo 'mysql -uroot -pPr0ph3t < /var/www/init.sql' >> run.sh \
-# 	&& echo '' >> run.sh \
-# 	&& echo 'if [ ! -f \'/var/www/init.sql\' ]; then' >> run.sh \
-# 	&& echo '	rm -rf /var/www/init.sql' >> run.sh \
-# 	&& echo 'fi' >> run.sh \
-# 	&& chmod +x /run.sh
+
 
 #Expose http service
 EXPOSE 80

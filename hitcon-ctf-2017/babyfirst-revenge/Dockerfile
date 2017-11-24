@@ -2,10 +2,11 @@
 #
 #mysql root密码 : Pr0ph3t
 #其余环境与题目无异
+#如要修改root与题目用户密码请用 [docker exec -it '你的应用名称' /bin/bash] 进入容器修改
 #usage : 
 #    进入Dockerfile目录
-#    docker build -t '自定义镜像名字' .  //最后的.别少了
-#    docker run -id --name '你的应用名称' -p 外部端口:80 -m '内存限制 如1g、500m' '你的自定义镜像名称' /run.sh
+#    [docker build -t '自定义镜像名字' . ] //最后的.别少了
+#    [docker run -id --name '你的应用名称' -p 外部端口:80 -m '内存限制 如1g、500m' '你的自定义镜像名称' /run.sh]
 
 #整合lamp
 FROM pr0ph3t/lamp

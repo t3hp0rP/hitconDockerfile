@@ -22,7 +22,8 @@ RUN useradd -m -s /bin/bash ctf
 ADD install.sh /home/ctf/
 RUN chmod +x /home/ctf/install.sh
 RUN su ctf -c 'bash /home/ctf/install.sh'
-RUN source /home/ctf/.bashrc
+ENV NVM_DIR /home/ctf/.nvm
+RUN [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"
 RUN nvm install 4.6.0
 RUN nvm use 4.6.0
 WORKDIR /home/ctf/

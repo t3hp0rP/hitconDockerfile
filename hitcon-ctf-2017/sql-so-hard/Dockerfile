@@ -40,7 +40,7 @@ RUN chmod +x /run.sh
 RUN touch /home/ctf/app/nohup.out
 RUN chown ctf /home/ctf/app/nohup.out
 RUN chmod 755 /home/ctf/app/nohup.out
-RUN echo 'echo \'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}\'' > /readflag
+RUN echo "echo \'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}\'" > /readflag
 
 #Init app env
 WORKDIR /home/ctf/app/

@@ -19,6 +19,7 @@ if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
 	rm -rf /home/ctf/psqlInit.sql
 fi
 
+nvm use 4.6.0
 cd /home/ctf/
 npm install express-generator -g
 express app

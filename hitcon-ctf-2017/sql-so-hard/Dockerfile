@@ -23,7 +23,7 @@ ADD install.sh /home/ctf/
 RUN chmod +x /home/ctf/install.sh
 RUN su ctf -c 'bash /home/ctf/install.sh'
 ENV NVM_DIR /home/ctf/.nvm
-RUN [ -s "$NVM_DIR/nvm.sh" ] && \\. "$NVM_DIR/nvm.sh"
+RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 RUN nvm install 4.6.0
 RUN nvm use 4.6.0
 WORKDIR /home/ctf/

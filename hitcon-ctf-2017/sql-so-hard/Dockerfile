@@ -15,7 +15,7 @@ FROM pr0ph3t/nodejsmysql
 RUN apt-get update && apt-get install -y netcat postgresql cron curl
 
 #Init cron , 每60s清除hall of shame
-RUN echo '0 */1 * * * root mysql -u userdb -puserdb -e \'truncate table blacklists\'' >> /etc/crontab
+RUN echo "0 */1 * * * root mysql -u userdb -puserdb -e \'truncate table blacklists\'" >> /etc/crontab
 
 #Create user to run server
 RUN useradd -m -s /bin/bash ctf

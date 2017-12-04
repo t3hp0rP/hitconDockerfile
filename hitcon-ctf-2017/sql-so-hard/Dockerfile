@@ -24,31 +24,15 @@ RUN chmod +x /home/ctf/install.sh
 RUN su ctf -c 'bash /home/ctf/install.sh'
 ENV NVM_DIR /home/ctf/.nvm
 RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-RUN nvm install 4.6.0
-RUN nvm use 4.6.0
-WORKDIR /home/ctf/
-RUN npm install express-generator -g
-RUN express app
 
 #Copy init file
-ADD app.js /home/ctf/app/
+ADD app.js /home/ctf/
 ADD mysqlInit.sql /home/ctf/
 ADD psqlInit.sql /home/ctf/
 ADD run.sh /
 RUN chmod +x /run.sh
 
-
-RUN touch /home/ctf/app/nohup.out
-RUN chown ctf /home/ctf/app/nohup.out
-RUN chmod 755 /home/ctf/app/nohup.out
 RUN echo "echo \'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}\'" > /readflag
-
-#Init app env
-WORKDIR /home/ctf/app/
-RUN npm install express
-RUN npm install pg@7.0.2
-RUN npm install mysql
-RUN npm install qs
 
 #Expose
 EXPOSE 31337

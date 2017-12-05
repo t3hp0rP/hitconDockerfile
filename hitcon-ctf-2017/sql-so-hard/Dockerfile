@@ -11,6 +11,9 @@
 
 FROM pr0ph3t/nodejsmysql
 
+#replace sh with bash
+RUN rm /bin/sh && ln -s /bin/bash /bin/sh
+
 #Install nc && postgresql && cron
 RUN apt-get update && apt-get install -y netcat postgresql cron curl
 
@@ -23,7 +26,11 @@ ADD install.sh /home/ctf/
 RUN chmod +x /home/ctf/install.sh
 RUN su ctf -c 'bash /home/ctf/install.sh'
 ENV NVM_DIR /home/ctf/.nvm
-RUN [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+ENV NODE_VERSION 4.6.0
+RUN nvm install $NODE_VERSION
+RUN nvm use $NODE_VERSION
+ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
+ENV PATH $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 #Copy init file
 ADD app.js /home/ctf/

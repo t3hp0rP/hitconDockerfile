@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 service cron start
 
 service mysql start
@@ -19,9 +19,9 @@ if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
 	rm -rf /home/ctf/psqlInit.sql
 fi
 
-bash -i -c 'nvm use 4.6.0'
+nvm use 4.6.0
 cd /home/ctf/
-bash -i -c 'npm install express-generator -g'
+npm install express-generator -g
 express app
 
 #Init app env

@@ -19,9 +19,9 @@ if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
 	rm -rf /home/ctf/psqlInit.sql
 fi
 
-nvm use 4.6.0
+bash -i -c 'nvm use 4.6.0'
 cd /home/ctf/
-npm install express-generator -g
+bash -i -c 'npm install express-generator -g'
 express app
 
 #Init app env

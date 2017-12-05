@@ -24,7 +24,8 @@ RUN echo "0 */1 * * * root mysql -u userdb -puserdb -e \'truncate table blacklis
 RUN useradd -m -s /bin/bash ctf
 ADD install.sh /home/ctf/
 RUN chmod +x /home/ctf/install.sh
-RUN su ctf -c 'bash /home/ctf/install.sh'
+RUN su ctf 
+RUN bash /home/ctf/install.sh
 ENV NVM_DIR /home/ctf/.nvm
 ENV NODE_VERSION 4.6.0
 RUN nvm install $NODE_VERSION

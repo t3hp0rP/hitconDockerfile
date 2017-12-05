@@ -21,8 +21,8 @@ fi
 
 bash -i -c 'nvm use 4.6.0'
 cd /home/ctf/
-bash -i -c 'npm install express-generator -g'
-bash -i -c 'express app'
+npm install express-generator -g
+express app
 
 #Init app env
 cd /home/ctf/app/

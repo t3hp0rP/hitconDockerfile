@@ -36,4 +36,5 @@ RUN echo "echo \'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}
 
 #Expose
 EXPOSE 31337
+USER ctf
 CMD ["bash -x /run.sh"]

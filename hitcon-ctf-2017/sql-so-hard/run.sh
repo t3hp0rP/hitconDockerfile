@@ -12,12 +12,12 @@ su postgres -c 'psql -c \\i /home/ctf/psqlInit.sql'
 mysql -uroot -pPr0ph3t < /home/ctf/mysqlInit.sql
 
 #clean sql file
-if [ ! -f \'/home/ctf/mysqlInit.sql\' ]; then
-	rm -rf /home/ctf/mysqlInit.sql
-fi
-if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
-	rm -rf /home/ctf/psqlInit.sql
-fi
+# if [ ! -f \'/home/ctf/mysqlInit.sql\' ]; then
+# 	rm -rf /home/ctf/mysqlInit.sql
+# fi
+# if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
+# 	rm -rf /home/ctf/psqlInit.sql
+# fi
 
 su ctf
 

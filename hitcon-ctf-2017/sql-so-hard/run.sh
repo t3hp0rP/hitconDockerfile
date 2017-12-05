@@ -21,6 +21,9 @@ fi
 
 # bash -i -c 'nvm use 4.6.0'
 cd /home/ctf/
+/home/ctf/install.sh
+nvm install $NODE_VERSION
+nvm use $NODE_VERSION
 npm install express-generator -g
 express app
 

@@ -19,6 +19,8 @@ if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
 	rm -rf /home/ctf/psqlInit.sql
 fi
 
+su ctf
+
 # bash -i -c 'nvm use 4.6.0'
 cd /home/ctf/
 /home/ctf/install.sh

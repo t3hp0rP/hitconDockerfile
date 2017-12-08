@@ -21,13 +21,12 @@ mysql -uroot -pPr0ph3t < /home/ctf/mysqlInit.sql
 
 su ctf
 
-# bash -i -c 'nvm use 4.6.0'
 cd /home/ctf/
 /home/ctf/install.sh
-nvm install $NODE_VERSION
-nvm use $NODE_VERSION
-npm install express-generator -g
-express app
+bash -i -c 'nvm install $NODE_VERSION'
+bash -i -c 'nvm use $NODE_VERSION'
+bash -i -c 'npm install express-generator -g'
+bash -i -c 'express app'
 
 #Init app env
 cd /home/ctf/app/

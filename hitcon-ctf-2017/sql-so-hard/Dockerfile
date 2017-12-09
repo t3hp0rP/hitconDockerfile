@@ -9,7 +9,7 @@
 #    [docker build -t '自定义镜像名字' . ] //最后的.别少了
 #    [docker run -id --name '你的应用名称' -p 外部端口:80 -m '内存限制 如1g、500m' '你的自定义镜像名称' /run.sh]
 
-FROM pr0ph3t/nodejsmysql
+FROM pr0ph3t/mysql
 
 #replace sh with bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh

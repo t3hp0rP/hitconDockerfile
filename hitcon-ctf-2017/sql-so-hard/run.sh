@@ -23,20 +23,21 @@ su ctf <<EOF
 
 cd /home/ctf/
 /home/ctf/install.sh
-bash -i -c 'nvm install $NODE_VERSION'
-bash -i -c 'nvm use $NODE_VERSION'
-bash -i -c 'npm install express-generator -g'
-bash -i -c 'express app'
+source /home/ctf/.nvm/nvm.sh
+nvm install $NODE_VERSION
+nvm use $NODE_VERSION
+npm install express-generator -g
+express app
 
 #Init app env
 cd /home/ctf/app/
-bash -i -c 'npm install express'
-bash -i -c 'npm install pg@7.0.2'
-bash -i -c 'npm install mysql'
-bash -i -c 'npm install qs'
+npm install express
+npm install pg@7.0.2
+npm install mysql
+npm install qs
 mv /home/ctf/app.js /home/ctf/app/
 
-nohup bash -i -c 'node app.js' &
+nohup node app.js &
 
 EOF
 /bin/bash

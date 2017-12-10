@@ -6,7 +6,7 @@ service mysql start
 service postgresql start
 
 #Init postgresql
-su postgres -c 'psql -c \\i /home/ctf/psqlInit.sql'
+su postgres -c 'psql -f /home/ctf/psqlInit.sql'
 
 #Init mysql
 mysql -uroot -pPr0ph3t < /home/ctf/mysqlInit.sql
@@ -19,7 +19,7 @@ mysql -uroot -pPr0ph3t < /home/ctf/mysqlInit.sql
 # 	rm -rf /home/ctf/psqlInit.sql
 # fi
 
-su ctf
+su ctf <<EOF
 
 cd /home/ctf/
 /home/ctf/install.sh
@@ -35,10 +35,8 @@ bash -i -c 'npm install pg@7.0.2'
 bash -i -c 'npm install mysql'
 bash -i -c 'npm install qs'
 mv /home/ctf/app.js /home/ctf/app/
-touch /home/ctf/app/nohup.out
-chown ctf /home/ctf/app/nohup.out
-chmod 755 /home/ctf/app/nohup.out
 
 nohup bash -i -c 'node app.js' &
 
+EOF
 /bin/bash

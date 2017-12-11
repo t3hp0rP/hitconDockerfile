@@ -35,6 +35,7 @@ ADD run.sh /
 RUN chmod +x /run.sh
 
 RUN echo "echo \'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}\'" > /readflag
+RUN chmod +x /readflag
 
 #Expose
 EXPOSE 31337

@@ -12,14 +12,14 @@ su postgres -c 'psql -f /home/ctf/psqlInit.sql'
 mysql -uroot -pPr0ph3t < /home/ctf/mysqlInit.sql
 
 #clean sql file
-# if [ ! -f \'/home/ctf/mysqlInit.sql\' ]; then
-# 	rm -rf /home/ctf/mysqlInit.sql
-# fi
-# if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
-# 	rm -rf /home/ctf/psqlInit.sql
-# fi
+if [ ! -f \'/home/ctf/mysqlInit.sql\' ]; then
+	rm -rf /home/ctf/mysqlInit.sql
+fi
+if [ ! -f \'/home/ctf/psqlInit.sql\' ]; then
+	rm -rf /home/ctf/psqlInit.sql
+fi
 
-su ctf <<EOF
+nohup su ctf <<EOF
 
 cd /home/ctf/
 /home/ctf/install.sh
@@ -37,7 +37,5 @@ npm install mysql
 npm install qs
 mv /home/ctf/app.js /home/ctf/app/
 
-nohup node app.js &
-
-EOF
-/bin/bash
+node app.js
+EOF &

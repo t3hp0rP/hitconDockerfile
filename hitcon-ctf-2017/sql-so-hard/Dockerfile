@@ -7,9 +7,9 @@
 #usage : 
 #    进入Dockerfile目录
 #    [docker build -t '自定义镜像名字' . ] //最后的.别少了
-#    [docker run -id --name '你的应用名称' -p 外部端口:80 -m '内存限制 如1g、500m' '你的自定义镜像名称' /run.sh]
+#    [docker run -itd --name '你的应用名称' -p 外部端口:80 -m '内存限制 如1g、500m' '你的自定义镜像名称' /run.sh]
 
-FROM pr0ph3t/nodejsmysql
+FROM pr0ph3t/mysql
 
 #replace sh with bash
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
@@ -18,7 +18,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update && apt-get install -y netcat postgresql cron curl
 
 #Init cron , 每60s清除hall of shame
-RUN echo "*/1 * * * * root mysql -u userdb -puserdb -e \'truncate table blacklists\'" >> /etc/crontab
+RUN echo "0 */1 * * * root mysql -u ban -pban -e 'truncate table bandb.blacklists'" >> /etc/crontab
 
 #Create user to run server
 RUN useradd -m -s /bin/bash ctf
@@ -26,8 +26,6 @@ ADD install.sh /home/ctf/
 RUN chmod +x /home/ctf/install.sh
 ENV NVM_DIR /home/ctf/.nvm
 ENV NODE_VERSION 4.6.0
-# ENV NODE_PATH $NVM_DIR/v$NODE_VERSION/lib/node_modules
-# ENV PATH $NVM_DIR/v$NODE_VERSION/bin:$PATH
 
 #Copy init file
 ADD app.js /home/ctf/
@@ -36,7 +34,8 @@ ADD psqlInit.sql /home/ctf/
 ADD run.sh /
 RUN chmod +x /run.sh
 
-RUN echo "echo \'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}\'" > /readflag
+RUN echo "echo 'hitcon{if_you_dont_know_why_plz_check_mysql_max_allowed_packet}'" > /readflag
+RUN chmod +x /readflag
 
 #Expose
 EXPOSE 31337

@@ -3,6 +3,14 @@ Finished Dockerfile:
 
 * [/hitcon-ctf-2017/babyfirst-revenge/](https://github.com/Pr0phet/hitcon2017Dockerfile/tree/master/hitcon-ctf-2017/babyfirst-revenge)
 * [/hitcon-ctf-2017/babyfirst-revenge-v2/](https://github.com/Pr0phet/hitcon2017Dockerfile/tree/master/hitcon-ctf-2017/babyfirst-revenge-v2)
+* [/hitcon-ctf-2017/sql-so-hard/](https://github.com/Pr0phet/hitcon2017Dockerfile/tree/master/hitcon-ctf-2017/sql-so-hard)
+
+--------
+
+Finished Writeup:
+(The README file in the folder)
+* [/hitcon-ctf-2017/babyfirst-revenge/](https://github.com/Pr0phet/hitcon2017Dockerfile/tree/master/hitcon-ctf-2017/babyfirst-revenge)
+* [/hitcon-ctf-2017/babyfirst-revenge-v2/](https://github.com/Pr0phet/hitcon2017Dockerfile/tree/master/hitcon-ctf-2017/babyfirst-revenge-v2)
 
 --------
 

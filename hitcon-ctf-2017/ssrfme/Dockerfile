@@ -13,7 +13,7 @@ FROM pr0ph3t/lap7
 MAINTAINER Pr0ph3t <1415314884@qq.com>
 
 #Install crontab and perl with LWP
-RUN apt-get update -y && apt-get install cron -y && apt-get install perl -y && apt-get install libwww-perl -y && apt-get install curl
+RUN apt-get update -y && apt-get install cron -y && apt-get install perl -y && apt-get install libwww-perl -y && apt-get install curl -y
 
 #Init crontab , 每天凌晨4点清空sandbox文件夹
 RUN echo '0 4 * * * root rm -rf /var/www/html/sandbox/*' >> /etc/crontab

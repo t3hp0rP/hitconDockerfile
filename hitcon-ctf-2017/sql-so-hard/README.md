@@ -65,10 +65,17 @@ print r.content
 ```
 
 参考:
+
 https://github.com/orangetw/My-CTF-Web-Challenges
+
 https://www.leavesongs.com/PENETRATION/node-postgres-code-execution-vulnerability.html
+
 https://github.com/vulhub/vulhub/tree/master/node/node-postgres
+
 https://www.postgresql.org/docs/9.6/static/sql-syntax-lexical.html
+
 https://www.postgresql.org/docs/9.5/static/dml-returning.html
+
 https://github.com/sorgloomer/writeups/blob/master/writeups/2017-hitcon-quals/sql-so-hard.md
+
 https://node-postgres.com/announcements#2017-08-12-code-execution-vulnerability

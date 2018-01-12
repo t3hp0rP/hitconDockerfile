@@ -31,6 +31,7 @@ RUN echo 'hitcon{Perl_<3_y0u}' > /flag
 #Configure the apache2.config
 RUN sed 's/Indexes //' /etc/apache2/apache2.conf > /etc/apache2/apache2.conf.new
 RUN mv /etc/apache2/apache2.conf.new /etc/apache2/apache2.conf
+RUN echo -e '<Directory "/var/www/html/sandbox">\n\tphp_flag engine off\n</Directory>' >> /etc/apache2/site-enabled/000-default.conf
 
 #Create run.sh
 ADD run.sh /

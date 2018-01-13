@@ -1,6 +1,6 @@
 #Hitcon 2017 web ssrfme
 #
-#mysql root密码 : Pr0ph3t
+#mysql root密码 : Pr0ph3t 本题不需要用到mysql
 #其余环境与题目大致无异
 #如要修改root与题目用户密码请用 [docker exec -it '你的应用名称' /bin/bash] 进入容器修改
 #usage : 
@@ -21,17 +21,19 @@ RUN echo '0 4 * * * root rm -rf /var/www/html/sandbox/*' >> /etc/crontab
 #Init challenge
 ADD index.php /var/www/html/
 ADD readflag /readflag
+RUN chmod u+s /readflag
 RUN rm -rf /var/www/html/index.html
 RUN mkdir /var/www/html/sandbox
 RUN chown www-data /var/www/html/sandbox
 RUN chmod -R 775 /var/www/html/sandbox
-RUN useradd -m -s /sbin/nologin orange
+RUN useradd -m -s /bin/bash orange
 RUN echo 'hitcon{Perl_<3_y0u}' > /flag
+RUN chmod 700 /flag
 
 #Configure the apache2.config
 RUN sed 's/Indexes //' /etc/apache2/apache2.conf > /etc/apache2/apache2.conf.new
 RUN mv /etc/apache2/apache2.conf.new /etc/apache2/apache2.conf
-RUN echo -e '<Directory "/var/www/html/sandbox">\n\tphp_flag engine off\n</Directory>' >> /etc/apache2/site-enabled/000-default.conf
+RUN echo '<Directory "/var/www/html/sandbox">\n\tphp_flag engine off\n</Directory>' >> /etc/apache2/sites-enabled/000-default.conf
 
 #Create run.sh
 ADD run.sh /

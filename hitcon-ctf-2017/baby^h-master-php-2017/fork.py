@@ -13,11 +13,11 @@ except:
 
 def run(i):
     while 1:
-        HOST = '13.115.31.205'
-        PORT = 80
+        HOST = '127.0.0.1'
+        PORT = 12345
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
-        s.sendall('GET / HTTP/1.1\nHost: 54.238.212.199\nConnection: Keep-Alive\n\n')
+        s.sendall('GET / HTTP/1.1\nHost: 127.0.0.1\nConnection: Keep-Alive\n\n')
         # s.close()
         print 'ok'
         time.sleep(0.5)

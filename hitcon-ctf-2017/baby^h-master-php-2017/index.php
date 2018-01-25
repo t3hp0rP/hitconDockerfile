@@ -18,7 +18,6 @@ class User {
 	}
 }
 
-#######################key class################################
 class Admin extends User {
 	function __destruct() {
 		$random = bin2hex(openssl_random_pseudo_bytes(32));
@@ -28,24 +27,20 @@ class Admin extends User {
 		$_GET["lucky"]();
 	}
 }
-#######################key class################################
 function check_session() {
 	global $SECRET;
 	$data = $_COOKIE["session-data"];
-	list($data, $hmac) = explode("-----", $data, 2); #从cookie中取出data和hmac签名
-	if (!isset($data, $hmac) || !is_string($data) || !is_string($hmac)) #判空
-	{
+	list($data, $hmac) = explode("-----", $data, 2);
+	if (!isset($data, $hmac) || !is_string($data) || !is_string($hmac)) {
 		die("Bye");
 	}
 
-	if (!hash_equals(hash_hmac("sha1", $data, $SECRET), $hmac)) #判断data加密之后和hmac签名是否对应
-	{
+	if (!hash_equals(hash_hmac("sha1", $data, $SECRET), $hmac)) {
 		die("Bye Bye");
 	}
 
-	$data = unserialize($data); #反序列化
-	if (!isset($data->avatar)) #如果反序列化之后的data包含的类中无avatar成员,退出
-	{
+	$data = unserialize($data);
+	if (!isset($data->avatar)) {
 		die("Bye Bye Bye");
 	}
 
@@ -73,9 +68,9 @@ function show($path) {
 
 $mode = $_GET["m"];
 if ($mode == "upload") {
-	upload(check_session()); #从cookie中提取data反序列化后的avatar成员并将其内容作为路径, 请求url中的内容写到该路径下的avatar.gif文件中
+	upload(check_session());
 } else if ($mode == "show") {
-	show(check_session()); #从cookie中提取data反序列化后的avatar成员并将其内容作为路径, 展示该目录下的avatar.gif
+	show(check_session());
 } else {
 	highlight_file(__FILE__);
 }

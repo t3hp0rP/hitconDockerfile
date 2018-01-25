@@ -14,7 +14,7 @@ except:
 def run(i):
     while 1:
         HOST = '127.0.0.1'
-        PORT = 12345
+        PORT = 12344
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         s.connect((HOST, PORT))
         s.sendall('GET / HTTP/1.1\nHost: 127.0.0.1\nConnection: Keep-Alive\n\n')

@@ -1,6 +1,7 @@
 #Hitcon 2017 web baby^h-master-php-2017
 #
 #read_secret输出OrangeOrangeOrange
+#MaxConnectionsPerChild为100
 #其余环境与题目大致无异
 #如要修改root与题目用户密码请用 [docker exec -it '你的应用名称' /bin/bash] 进入容器修改
 #usage : 
@@ -31,9 +32,11 @@ RUN chmod -R 775 /var/www/data
 RUN echo 'hitcon{Th3 d4rk fl4m3 PHP Mast3r}' > /flag
 RUN chmod 700 /flag
 
-#Configure the apache2.config
+#Configure the apache2
 RUN sed 's/Indexes //' /etc/apache2/apache2.conf > /etc/apache2/apache2.conf.new
+RUN sed 's/MaxConnectionsPerChild   0/MaxConnectionsPerChild   100/' /etc/apache2/mods-available/mpm_prefork.conf > /etc/apache2/mods-available/mpm_prefork.conf.new
 RUN mv /etc/apache2/apache2.conf.new /etc/apache2/apache2.conf
+RUN mv /etc/apache2/mods-available/mpm_prefork.conf.new /etc/apache2/mods-available/mpm_prefork.conf
 RUN echo '<Directory "/var/www/data">\n\tphp_flag engine off\n</Directory>' >> /etc/apache2/sites-enabled/000-default.conf
 
 #Create run.sh

